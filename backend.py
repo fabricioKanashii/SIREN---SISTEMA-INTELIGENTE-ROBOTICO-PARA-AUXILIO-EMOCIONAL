@@ -6,6 +6,7 @@ from datetime import datetime
 
 import cv2
 import numpy as np
+import pygame
 from deepface import DeepFace
 
 from config import (
@@ -755,3 +756,39 @@ class MotorSiren:
     def obter_dados_sessao(self):
 
         return self.sessao.obter_dados()
+
+# --------------------------------------------------------
+# GERENCIADOR DE AUDIO DO SIREN
+# --------------------------------------------------------
+
+
+class AudioSiren:
+
+    def __init__(self):
+        pygame.mixer.init()
+
+    def reproduzir_e_esperar(self, caminho):
+        pygame.mixer.music.load(caminho)
+        pygame.mixer.music.play()
+
+        while pygame.mixer.music.get_busy():
+            pygame.time.Clock().tick(10)
+
+    def pausar(self):
+        pygame.mixer.music.pause()
+
+    def continuar(self):
+        pygame.mixer.music.unpause()
+
+    def parar(self):
+        pygame.mixer.music.stop()
+
+    def esta_reproduzindo(self):
+        return pygame.mixer.music.get_busy()
+
+    def volume(self, valor):
+        pygame.mixer.music.set_volume(valor)
+
+    def finalizar(self):
+        pygame.mixer.quit()
+

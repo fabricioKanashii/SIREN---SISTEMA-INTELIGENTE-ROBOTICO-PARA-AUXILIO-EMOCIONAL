@@ -36,7 +36,7 @@ class ConfiguracaoGeral:
     # Caminho da logo
     CAMINHO_LOGO_BASE = os.path.join(
         PASTA_PROJETO,
-        "imgs",
+        "assets/imgs",
         "logo"
     )
 

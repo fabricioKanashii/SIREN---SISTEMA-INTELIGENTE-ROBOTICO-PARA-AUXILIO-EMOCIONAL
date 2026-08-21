@@ -3,6 +3,7 @@ import sys
 import time
 import traceback
 
+from tensorflow.python.data.experimental.ops.testing import sleep
 
 # ============================================================
 # CAMINHO DO PROJETO
@@ -59,7 +60,8 @@ except Exception:
 try:
 
     from backend import (
-        MotorSiren
+        MotorSiren,
+        AudioSiren
     )
 
 except Exception:
@@ -89,7 +91,6 @@ except Exception:
 
     sys.exit(1)
 
-
 # ============================================================
 # APLICAÇÃO
 # ============================================================
@@ -105,6 +106,14 @@ class AplicacaoSiren:
 
         self.motor = (
             MotorSiren()
+        )
+
+        print(
+            "[SIREN] Criando audio..."
+        )
+
+        self.audio = (
+            AudioSiren()
         )
 
         print(
@@ -288,9 +297,13 @@ class AplicacaoSiren:
             "[SIREN] Sistema iniciado."
         )
 
+        self.audio.reproduzir_e_esperar("assets/audios/saudacao.mp3")
+
         print(
             "[SIREN] Procurando rosto..."
         )
+
+        self.audio.reproduzir_e_esperar("assets/audios/instrucaorosto.mp3")
 
         print()
 
